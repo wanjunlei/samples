@@ -17,10 +17,16 @@ func HandleCronInput(ctx ofctx.Context, in []byte) (ofctx.Out, error) {
 		greeting, _ = json.Marshal(map[string]string{"message": "Hello"})
 	}
 
-	_, err := ctx.Send("sample", greeting)
-	if err != nil {
-		log.Printf("Error: %v\n", err)
-		return ctx.ReturnOnInternalError(), err
+	if ctx.HasOutputs() {
+		for key := range ctx.GetOutputs() {
+			_, err := ctx.Send(key, greeting)
+	                if err != nil {
+		            log.Printf("Error: %v\n", err)
+		            return ctx.ReturnOnInternalError(), err
+	                }
+		}
+	
 	}
+	
 	return ctx.ReturnOnSuccess(), nil
 }
