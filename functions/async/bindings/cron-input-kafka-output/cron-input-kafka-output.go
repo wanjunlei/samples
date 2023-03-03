@@ -3,6 +3,7 @@ package bindings
 import (
 	"encoding/json"
 	"log"
+	"os"
 
 	ofctx "github.com/OpenFunction/functions-framework-go/context"
 )
@@ -17,15 +18,10 @@ func HandleCronInput(ctx ofctx.Context, in []byte) (ofctx.Out, error) {
 		greeting, _ = json.Marshal(map[string]string{"message": "Hello"})
 	}
 
-	if ctx.GetOutputs() != nil {
-		for key := range ctx.GetOutputs() {
-			_, err := ctx.Send(key, greeting)
-	                if err != nil {
-		            log.Printf("Error: %v\n", err)
-		            return ctx.ReturnOnInternalError(), err
-	                }
-		}
-	
+	_, err := ctx.Send(os.Getenv(OUTPUT), greeting)
+	if err != nil {
+		log.Printf("Error: %v\n", err)
+		return ctx.ReturnOnInternalError(), err
 	}
 	
 	return ctx.ReturnOnSuccess(), nil
