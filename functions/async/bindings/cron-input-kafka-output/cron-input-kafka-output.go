@@ -17,7 +17,7 @@ func HandleCronInput(ctx ofctx.Context, in []byte) (ofctx.Out, error) {
 		greeting, _ = json.Marshal(map[string]string{"message": "Hello"})
 	}
 
-	if ctx.HasOutputs() {
+	if ctx.GetOutputs() != nil {
 		for key := range ctx.GetOutputs() {
 			_, err := ctx.Send(key, greeting)
 	                if err != nil {
