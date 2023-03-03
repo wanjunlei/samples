@@ -18,7 +18,7 @@ func HandleCronInput(ctx ofctx.Context, in []byte) (ofctx.Out, error) {
 		greeting, _ = json.Marshal(map[string]string{"message": "Hello"})
 	}
 
-	_, err := ctx.Send(os.Getenv(OUTPUT), greeting)
+	_, err := ctx.Send(os.Getenv("OUTPUT"), greeting)
 	if err != nil {
 		log.Printf("Error: %v\n", err)
 		return ctx.ReturnOnInternalError(), err
