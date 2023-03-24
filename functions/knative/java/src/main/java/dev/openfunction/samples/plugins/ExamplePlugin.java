@@ -71,4 +71,16 @@ public class ExamplePlugin implements Plugin {
     public Object getField(String fieldName) {
         return null;
     }
+    
+        @Override
+    public Boolean needToTracing() {
+        return true;
+    }
+
+    @Override
+    public Map<String, String> tagsAddToTracing() {
+        Map<String, String> tags =  new HashMap<>();
+        tags.put("annotation", "a sample plugin");
+        return tags;
+    }
 }
