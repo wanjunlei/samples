@@ -71,4 +71,14 @@ public class ExamplePlugin implements Plugin {
     public Object getField(String fieldName) {
         return null;
     }
+
+    @Override
+    public Boolean needToTracing() {
+        return false;
+    }
+
+    @Override
+    public Map<String, String> tagsAddToTracing() {
+         return null;
+    }
 }
